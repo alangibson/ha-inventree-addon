@@ -1,5 +1,7 @@
 # InvenTree Home Assistant add-on
 
+<img src="ha-inventree-addon/icon.png" alt="InvenTree icon" width="128">
+
 Runs the official [inventree/inventree](https://hub.docker.com/r/inventree/inventree)
 image, pinned to **1.6.4**, on amd64 and aarch64. Includes
 [Supplier Scout](https://github.com/getpwnam/inventree-supplier-scout) **0.1.2**,
@@ -10,6 +12,8 @@ Based on the repository layout and official-image wrapper approach of
 [argaar/ha-part-db-app](https://github.com/argaar/ha-part-db-app).
 InvenTree itself is not built from source. The wrapper adds Nginx, configuration,
 database initialization, and supervision of the web server and background worker.
+
+The add-on icon is from [InvenTree 1.6.4](https://github.com/inventree/InvenTree/blob/1.6.4/assets/images/logo/inventree.png), used under the MIT license; see [LICENSE](LICENSE).
 
 ## Install locally
 
