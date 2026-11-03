@@ -1,0 +1,3 @@
+build_from:
+  amd64: inventree/inventree:1.6.4
+  aarch64: inventree/inventree:1.6.4

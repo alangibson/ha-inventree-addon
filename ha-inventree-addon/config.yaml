@@ -1,0 +1,41 @@
+name: InvenTree
+version: 1.6.4-5
+slug: inventree
+description: Open-source inventory management using the official InvenTree image
+arch:
+  - amd64
+  - aarch64
+startup: application
+boot: auto
+init: true
+timeout: 120
+ports:
+  8080/tcp: 8086
+ports_description:
+  8080/tcp: InvenTree web interface
+webui: http://[HOST]:[PORT:8080]
+backup: cold
+options:
+  site_url: http://homeassistant.local:8086
+  admin_user: admin
+  admin_email: admin@example.com
+  admin_password: password
+  timezone: Europe/Vienna
+  database_engine: sqlite3
+  database_host: ""
+  database_port: 5432
+  database_name: inventree
+  database_user: inventree
+  database_password: ""
+schema:
+  site_url: url
+  admin_user: str
+  admin_email: str
+  admin_password: password
+  timezone: str
+  database_engine: list(sqlite3|postgresql)
+  database_host: str?
+  database_port: port
+  database_name: str
+  database_user: str
+  database_password: password?

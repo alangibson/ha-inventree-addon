@@ -1,0 +1,18 @@
+services:
+  inventree:
+    image: ha-inventree-addon
+    build:
+      context: ./ha-inventree-addon
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 120s
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - "8086:8080"
+    volumes:
+      - inventree-data:/data/ha-inventree-addon
+
+volumes:
+  inventree-data:

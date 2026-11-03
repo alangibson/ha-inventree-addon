@@ -1,0 +1,13 @@
+{
+  "site_url": "http://localhost:8086",
+  "admin_user": "admin",
+  "admin_email": "admin@example.com",
+  "admin_password": "password",
+  "timezone": "Europe/Vienna",
+  "database_engine": "sqlite3",
+  "database_host": "",
+  "database_port": 5432,
+  "database_name": "inventree",
+  "database_user": "inventree",
+  "database_password": ""
+}

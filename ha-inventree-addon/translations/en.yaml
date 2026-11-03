@@ -1,0 +1,29 @@
+configuration:
+  site_url:
+    name: Site URL
+    description: Exact browser origin, including scheme and port, without a path.
+  admin_user:
+    name: Initial administrator username
+  admin_email:
+    name: Initial administrator email
+  admin_password:
+    name: Initial administrator password
+    description: Defaults to password. Creates a new account; does not reset an existing password.
+  timezone:
+    name: Timezone
+    description: IANA timezone, for example Europe/Vienna.
+  database_engine:
+    name: Database engine
+    description: SQLite for local storage, or an existing external PostgreSQL server.
+  database_host:
+    name: PostgreSQL host
+  database_port:
+    name: PostgreSQL port
+  database_name:
+    name: PostgreSQL database
+  database_user:
+    name: PostgreSQL username
+  database_password:
+    name: PostgreSQL password
+network:
+  8080/tcp: InvenTree web interface (HTTP)
