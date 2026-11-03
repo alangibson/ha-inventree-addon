@@ -35,9 +35,9 @@ def main():
             path = Path(temporary) / 'options.json'
             path.write_text(json.dumps(options))
             mounts = [] if standalone else ['-v', f'{path}:/data/options.json:ro']
-            docker('run', '-d', '--init', '--name', name, '-p', '127.0.0.1::8080',
+            docker('run', '-d', '--init', '--name', name, '-p', '127.0.0.1::8086',
                    '-v', f'{volume}:/data/ha-inventree-addon', *mounts, image)
-            port = docker('port', name, '8080/tcp').rsplit(':', 1)[1]
+            port = docker('port', name, '8086/tcp').rsplit(':', 1)[1]
             base = f'http://localhost:{port}'
 
             def request(path, authenticated=False, payload=None):
@@ -58,7 +58,7 @@ def main():
             def ready():
                 nonlocal base
                 # Docker may assign a different ephemeral host port on restart.
-                port = docker('port', name, '8080/tcp').rsplit(':', 1)[1]
+                port = docker('port', name, '8086/tcp').rsplit(':', 1)[1]
                 base = f'http://localhost:{port}'
                 deadline = time.monotonic() + 300
                 while time.monotonic() < deadline:

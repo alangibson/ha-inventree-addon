@@ -23,4 +23,4 @@ configuration:
   database_password:
     name: PostgreSQL password
 network:
-  8080/tcp: InvenTree web interface (HTTP)
+  8086/tcp: InvenTree web interface (HTTP)

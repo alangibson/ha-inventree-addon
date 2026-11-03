@@ -14,7 +14,7 @@ SITE_URL = None
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = []
 USE_X_FORWARDED_HOST = False
-MIDDLEWARE = [  # noqa: F405
+MIDDLEWARE = ['ingress.IngressMiddleware'] + [  # noqa: F405
     middleware for middleware in MIDDLEWARE
     if middleware != 'InvenTree.middleware.InvenTreeHostSettingsMiddleware'
 ]

@@ -1,3 +1,10 @@
+# 1.6.4-7
+
+- Add Home Assistant Ingress, Open Web UI, and Show in sidebar support.
+- Share port 8086 between Ingress and direct web/API access.
+- Adapt frontend routes, API links, redirects and cookies to the Ingress prefix
+  without modifying upstream or plugin source files.
+
 # 1.6.4-6
 
 - Remove the site URL option; accept access by hostname or IP while retaining

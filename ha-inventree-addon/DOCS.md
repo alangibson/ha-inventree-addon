@@ -41,13 +41,18 @@ The background worker uses the database-backed queue.
 ## Web access
 
 Open `http://<HA-hostname-or-IP>:8086`, or the port selected in the Network
-section. No hostname option is required. The container listens on HTTP port 8080.
+section. No hostname option is required. The container listens on HTTP port 8086.
 The wrapper accepts any valid hostname and uses the current request for web links.
 Legacy `site_url` options and `INVENTREE_SITE_URL` values are ignored.
 Authentication and Django's same-origin CSRF checks remain enabled.
 
-Ingress is not enabled yet. InvenTree still requires its own login.
-The add-on does not terminate TLS or trust incoming forwarded-protocol headers.
+Home Assistant's **Open Web UI** button uses Ingress. Enable **Show in sidebar**
+on the add-on's Information tab to pin InvenTree to the sidebar. Ingress and direct
+access share container port 8086. Ingress does not require the host port mapping;
+keep it enabled for direct browser access and KiCad/API clients.
+InvenTree still requires its own login. The sidebar is limited to HA administrators.
+Only the Supervisor at 172.30.32.2 can supply Ingress path and protocol headers;
+direct clients cannot override these. The add-on does not terminate TLS.
 Background jobs without a browser request may need InvenTree's Base URL setting
 for absolute links in emails or generated documents. Upstream may log
 `No SITE_URL specified`; this is expected for this request-based configuration.

@@ -20,9 +20,9 @@ RUN python3 -c "import importlib.util; from pathlib import Path; package = Path(
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY run.py /opt/ha-inventree/run.py
-COPY addon_settings.py /opt/ha-inventree/addon_settings.py
+COPY addon_settings.py ingress.py /opt/ha-inventree/
 WORKDIR /home/inventree
-EXPOSE 8080
+EXPOSE 8086
 STOPSIGNAL SIGTERM
 ENTRYPOINT ["python3", "/opt/ha-inventree/run.py"]
 CMD []

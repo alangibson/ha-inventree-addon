@@ -1,5 +1,5 @@
 name: InvenTree
-version: 1.6.4-6
+version: 1.6.4-7
 slug: inventree
 description: Open-source inventory management using the official InvenTree image
 arch:
@@ -10,10 +10,15 @@ boot: auto
 init: true
 timeout: 120
 ports:
-  8080/tcp: 8086
+  8086/tcp: 8086
 ports_description:
-  8080/tcp: InvenTree web interface
-webui: http://[HOST]:[PORT:8080]
+  8086/tcp: InvenTree web interface
+ingress: true
+ingress_port: 8086
+ingress_entry: web/
+panel_title: InvenTree
+panel_icon: mdi:package-variant
+panel_admin: true
 backup: cold
 options:
   admin_user: admin

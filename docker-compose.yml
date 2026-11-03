@@ -10,7 +10,7 @@ services:
       - path: ./.env
         required: false
     ports:
-      - "8086:8080"
+      - "8086:8086"
     volumes:
       - inventree-data:/data/ha-inventree-addon
 

@@ -67,7 +67,8 @@ in your browser.
 
 ## Behavior
 
-- Web interface on port **8086** by default; no ingress support.
+- Home Assistant Ingress with **Open Web UI** and **Show in sidebar**.
+- Direct web/API access on port **8086**, sharing the same container listener.
 - SQLite database, media, configuration, and secrets persist under `/data/ha-inventree-addon`.
 - Optional external PostgreSQL database.
 - Background tasks run in the same container, with a single worker.
