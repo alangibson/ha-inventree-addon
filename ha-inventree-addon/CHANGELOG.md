@@ -1,3 +1,8 @@
+# 1.6.4-8
+
+- Fix duplicated Ingress prefixes in metadata-driven API requests, including
+  supplier selection, by returning absolute local URLs in JSON responses.
+
 # 1.6.4-7
 
 - Add Home Assistant Ingress, Open Web UI, and Show in sidebar support.

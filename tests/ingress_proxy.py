@@ -33,6 +33,7 @@ class Proxy(BaseHTTPRequestHandler):
     do_GET = proxy
     do_POST = proxy
     do_PATCH = proxy
+    do_OPTIONS = proxy
     do_DELETE = proxy
 
 

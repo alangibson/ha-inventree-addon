@@ -88,7 +88,10 @@ class IngressMiddleware:
                 if isinstance(value, str):
                     path = value[len(origin):] if value.startswith(origin + '/') else value
                     if ROOT_URL.match(path):
-                        return routed_url(value)
+                        # Axios prepends api_host even to root-relative URLs.
+                        # Metadata endpoints (e.g. supplier selectors) therefore
+                        # need absolute URLs, not an already-prefixed path.
+                        return origin + routed_url(value)
                 return value
             response.content = json.dumps(rewrite(json.loads(response.content))).encode()
         else:

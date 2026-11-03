@@ -1,4 +1,5 @@
 """Isolated Ingress test; requires Docker and unused subnet 172.30.32.0/24."""
+import base64
 import http.cookiejar
 import json
 from pathlib import Path
@@ -33,13 +34,13 @@ def main():
         jar = http.cookiejar.CookieJar()
         client = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
 
-        def request(path, payload=None, origin=None, base_url=None, headers=None):
+        def request(path, payload=None, origin=None, base_url=None, headers=None, method=None):
             headers = dict(headers or {})
             if payload is not None:
                 headers.update({'Content-Type': 'application/json', 'Origin': origin or base})
                 headers['X-CSRFToken'] = next(c.value for c in jar if c.name == 'csrftoken')
             req = urllib.request.Request((base_url or base + prefix) + path,
-                headers=headers, data=json.dumps(payload).encode() if payload is not None else None)
+                headers=headers, method=method, data=json.dumps(payload).encode() if payload is not None else None)
             try:
                 with client.open(req, timeout=30) as response:
                     return response.status, response.read(), response.headers
@@ -75,6 +76,20 @@ def main():
         status, data, _ = request('/api/auth/v1/auth/login', {'username': 'admin', 'password': 'password'})
         assert status == 200, (status, data)
         assert request('/api/part/')[0] == 200, 'Session authentication failed'
+        # Related-model selectors use api_url from OPTIONS metadata, rather
+        # than hardcoded endpoints. Axios must not prepend api_host again.
+        basic = 'Basic ' + base64.b64encode(b'admin:password').decode()
+        status, data, _ = request('/api/user/me/token/', headers={'Authorization': basic})
+        assert status == 200, (status, data)
+        auth = {'Authorization': 'Token ' + json.loads(data)['token']}
+        status, data, _ = request('/api/company/part/', method='OPTIONS', headers=auth)
+        assert status == 200, (status, data)
+        supplier_url = json.loads(data)['actions']['POST']['supplier']['api_url']
+        assert supplier_url == base + prefix + '/api/company/', supplier_url
+        query_url = supplier_url + '?is_supplier=true&search=&offset=0&limit=10'
+        with client.open(urllib.request.Request(query_url, headers=auth), timeout=30) as response:
+            assert response.status == 200, 'Supplier selector request failed'
+        print('PASS: supplier metadata URL has one prefix and supplier lookup succeeds', flush=True)
         assert request('/api/auth/v1/auth/login', {'username': 'admin', 'password': 'password'}, origin='http://other.example')[0] == 403
         status, html, _ = request('/web/', base_url=direct, headers={
             'X-Ingress-Path': prefix, 'X-HA-Ingress-Path': prefix,
