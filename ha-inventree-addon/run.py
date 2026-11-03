@@ -8,7 +8,6 @@ import secrets
 import subprocess
 import sys
 import time
-from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -32,7 +31,6 @@ def environment(options=None, data=Path('/data/ha-inventree-addon')):
     # The standalone defaults provide a working SQLite installation without
     # any configuration file. Upstream only creates a user if it is absent.
     defaults = {
-        'site_url': ('INVENTREE_SITE_URL', 'http://localhost:8086'),
         'timezone': ('INVENTREE_TIMEZONE', 'UTC'),
         'admin_user': ('INVENTREE_ADMIN_USER', 'admin'),
         'admin_email': ('INVENTREE_ADMIN_EMAIL', 'admin@example.com'),
@@ -46,28 +44,21 @@ def environment(options=None, data=Path('/data/ha-inventree-addon')):
     }
     options = {key: supplied.get(key) or env.get(variable) or default
                for key, (variable, default) in defaults.items()}
-    url = options['site_url'].rstrip('/')
-    parsed = urlsplit(url)
-    if (parsed.scheme not in ('http', 'https') or not parsed.hostname
-            or parsed.path or parsed.query or parsed.fragment or parsed.username
-            or parsed.password):
-        raise ValueError('site_url must be an http(s) origin without a path or credentials')
-    if any(char.isspace() for char in url):
-        raise ValueError('site_url must not contain whitespace')
-    _ = parsed.port  # Validate the optional port before touching persistent data.
     try:
         ZoneInfo(options['timezone'])
     except ZoneInfoNotFoundError:
         raise ValueError('timezone must be a valid IANA timezone') from None
     env.update({
         'INVENTREE_DATA_DIR': str(data),
-        'INVENTREE_SITE_URL': url,
+        'INVENTREE_SITE_URL': '',
+        'INVENTREE_ALLOWED_HOSTS': '*',
+        'DJANGO_SETTINGS_MODULE': 'addon_settings',
+        'PYTHONPATH': '/opt/ha-inventree' + (os.pathsep + env['PYTHONPATH'] if env.get('PYTHONPATH') else ''),
         'INVENTREE_TIMEZONE': options['timezone'],
         'INVENTREE_ADMIN_USER': options['admin_user'],
         'INVENTREE_ADMIN_EMAIL': options['admin_email'],
         'INVENTREE_ADMIN_PASSWORD': options['admin_password'],
     })
-    env.setdefault('INVENTREE_ALLOWED_HOSTS', parsed.hostname + ',localhost,127.0.0.1')
     for key, value in {
         'INVENTREE_DEBUG': 'False', 'INVENTREE_AUTO_UPDATE': 'False',
         'INVENTREE_PLUGINS_ENABLED': 'True', 'INVENTREE_GUNICORN_WORKERS': '1',

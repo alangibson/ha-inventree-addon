@@ -1,3 +1,8 @@
+# 1.6.4-6
+
+- Remove the site URL option; accept access by hostname or IP while retaining
+  authentication and same-origin CSRF protection.
+
 # 1.6.4-5
 
 - Store all InvenTree state under /data/ha-inventree-addon in Home Assistant's

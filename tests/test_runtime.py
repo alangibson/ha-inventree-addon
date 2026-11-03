@@ -17,7 +17,7 @@ class RuntimeTests(unittest.TestCase):
         self.env_patch = patch.dict(os.environ, {}, clear=True)
         self.env_patch.start()
         self.addCleanup(self.env_patch.stop)
-        self.options = dict(site_url='http://inventory.local:8086', timezone='UTC',
+        self.options = dict(timezone='UTC',
                             admin_user='admin', admin_email='admin@example.org',
                             admin_password='test-only', database_engine='sqlite3')
 
@@ -26,13 +26,9 @@ class RuntimeTests(unittest.TestCase):
         for key in ('DB_NAME', 'MEDIA_ROOT', 'STATIC_ROOT', 'SECRET_KEY_FILE',
                     'CONFIG_FILE', 'PLUGIN_DIR', 'OIDC_PRIVATE_KEY_FILE'):
             self.assertTrue(env['INVENTREE_' + key].startswith('/data/ha-inventree-addon/'), key)
-        self.assertNotIn('*', env['INVENTREE_ALLOWED_HOSTS'])
+        self.assertEqual(env['INVENTREE_ALLOWED_HOSTS'], '*')
 
-    def test_bad_origin_and_timezone_rejected(self):
-        for value in ('https://host/path', 'https://a:b@host', 'file:///etc/passwd',
-                      'https://host?query=1'):
-            with self.subTest(value=value), self.assertRaises(ValueError):
-                runtime.environment(dict(self.options, site_url=value))
+    def test_bad_timezone_rejected(self):
         with self.assertRaises(ValueError):
             runtime.environment(dict(self.options, timezone='not/a-zone'))
 
@@ -50,7 +46,8 @@ class RuntimeTests(unittest.TestCase):
                                    'INVENTREE_GUNICORN_WORKERS': '2'}):
             env = runtime.environment()
             self.assertEqual(env['INVENTREE_ADMIN_PASSWORD'], 'custom')
-            self.assertEqual(env['INVENTREE_SITE_URL'], 'https://parts.example.org')
+            self.assertEqual(env['INVENTREE_SITE_URL'], '')
+            self.assertEqual(env['DJANGO_SETTINGS_MODULE'], 'addon_settings')
             self.assertEqual(env['INVENTREE_GUNICORN_WORKERS'], '2')
             self.assertEqual(runtime.environment(self.options)['INVENTREE_ADMIN_PASSWORD'], 'test-only')
             self.assertEqual(runtime.environment({'admin_password': ''})['INVENTREE_ADMIN_PASSWORD'], 'custom')

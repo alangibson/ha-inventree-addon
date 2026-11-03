@@ -20,6 +20,7 @@ RUN python3 -c "import importlib.util; from pathlib import Path; package = Path(
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY run.py /opt/ha-inventree/run.py
+COPY addon_settings.py /opt/ha-inventree/addon_settings.py
 WORKDIR /home/inventree
 EXPOSE 8080
 STOPSIGNAL SIGTERM

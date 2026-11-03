@@ -27,7 +27,7 @@ def main():
     options = yaml.safe_load((root / 'ha-inventree-addon/config.yaml').read_text())['options']
     standalone = '--standalone' in sys.argv[2:]
     password = 'password' if standalone else secrets.token_urlsafe(24)
-    options.update(site_url='http://localhost', admin_email='test@example.org', admin_password=password)
+    options.update(admin_email='test@example.org', admin_password=password)
     auth = 'Basic ' + base64.b64encode(f'admin:{password}'.encode()).decode()
     docker('volume', 'create', volume)
     try:
@@ -74,6 +74,39 @@ def main():
 
             ready()
             assert request('/web/')[0] == 200, 'Frontend did not load'
+            for host in ('homeassistant.local:8086', '192.168.50.12:8086', 'inventory.example:9090'):
+                with urllib.request.urlopen(urllib.request.Request(
+                    base + '/web/', headers={'Host': host}), timeout=30) as response:
+                    assert response.status == 200, f'Frontend rejected {host}'
+            # Exercise the actual Django CSRF middleware with the add-on settings.
+            csrf_check = """
+import os, sys
+sys.path.insert(0, '/opt/ha-inventree')
+import run
+os.environ.update(run.environment())
+os.chdir(os.environ['INVENTREE_BACKEND_DIR'] + '/InvenTree')
+sys.path.insert(0, os.getcwd())
+import django
+django.setup()
+from django.conf import settings
+from django.http import HttpResponse
+from django.test import RequestFactory
+from django.middleware.csrf import CsrfViewMiddleware, get_token
+assert 'django.middleware.csrf.CsrfViewMiddleware' in settings.MIDDLEWARE
+assert 'InvenTree.middleware.InvenTreeHostSettingsMiddleware' not in settings.MIDDLEWARE
+factory = RequestFactory()
+for origin, accepted in [('http://inventory.example:9090', True), ('http://other.example', False)]:
+    request = factory.post('/test/', HTTP_HOST='inventory.example:9090', HTTP_ORIGIN=origin)
+    token = get_token(request)
+    request.COOKIES[settings.CSRF_COOKIE_NAME] = request.META['CSRF_COOKIE']
+    request.META['HTTP_X_CSRFTOKEN'] = token
+    middleware = CsrfViewMiddleware(lambda request: HttpResponse())
+    middleware.process_request(request)
+    response = middleware.process_view(request, lambda request: HttpResponse(), (), {})
+    assert (response is None) == accepted, (origin, response)
+print('PASS: same-origin CSRF accepted; cross-origin CSRF rejected')
+"""
+            print(docker('exec', name, 'python3', '-c', csrf_check))
             assert request('/static/web/index.html')[0] == 200, 'Static assets missing'
             assert request('/api/part/', True)[0] == 200, 'Administrator login failed'
             token_status, token_data = request('/api/user/me/token/', True)

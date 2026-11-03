@@ -1,5 +1,5 @@
 name: InvenTree
-version: 1.6.4-5
+version: 1.6.4-6
 slug: inventree
 description: Open-source inventory management using the official InvenTree image
 arch:
@@ -16,7 +16,6 @@ ports_description:
 webui: http://[HOST]:[PORT:8080]
 backup: cold
 options:
-  site_url: http://homeassistant.local:8086
   admin_user: admin
   admin_email: admin@example.com
   admin_password: password
@@ -28,7 +27,6 @@ options:
   database_user: inventree
   database_password: ""
 schema:
-  site_url: url
   admin_user: str
   admin_email: str
   admin_password: password

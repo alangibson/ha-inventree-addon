@@ -21,8 +21,7 @@ The add-on icon is from [InvenTree 1.6.4](https://github.com/inventree/InvenTree
    OS or Supervised host (for example using the Samba or SSH add-on).
 2. Open **Settings → Apps / Add-ons → Store**, then check for updates from the
    three-dot menu. Install **InvenTree** from **Local apps / Local add-ons**.
-3. Set `site_url` to the exact address you will use, such as
-   `http://homeassistant.local:8086`. Administrator options are optional.
+3. Optionally configure administrator credentials. No hostname configuration is needed.
 4. Start the add-on. Initial database setup can take several minutes.
 5. Open the Web UI and sign in with `admin` / `password` (or your configured credentials).
 6. Activate Supplier Scout under **Settings → Plugins** and configure your
@@ -47,8 +46,8 @@ installation. Change that password after signing in. No `options.json` or `.env`
 file is required. Existing accounts and passwords are not reset.
 
 To customize standalone settings, optionally copy `.env.example` to `.env` and
-set native `INVENTREE_*` environment variables. For remote access, set
-`INVENTREE_SITE_URL` to the server's actual hostname/IP and port. Activate and
+set native `INVENTREE_*` environment variables. For remote access, open
+`http://<server-hostname-or-IP>:8086`. Activate and
 configure the bundled plugins as described in [DOCS.md](ha-inventree-addon/DOCS.md).
 
 Home Assistant's `/data/options.json` is read automatically when available.
@@ -63,8 +62,8 @@ Assistant's automatic backup integration.
 
 After changing `.env`, run `docker compose up -d --force-recreate` to apply it.
 Changing administrator options does not reset an existing
-password. If you change the published port in `docker-compose.yml`, also update
-`INVENTREE_SITE_URL` in `.env`.
+password. If you change the published port in `docker-compose.yml`, use that port
+in your browser.
 
 ## Behavior
 

@@ -1,7 +1,4 @@
 configuration:
-  site_url:
-    name: Site URL
-    description: Exact browser origin, including scheme and port, without a path.
   admin_user:
     name: Initial administrator username
   admin_email:

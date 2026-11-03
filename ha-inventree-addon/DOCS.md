@@ -6,7 +6,6 @@ minutes and sufficient free disk space.
 
 | Option | Purpose |
 | --- | --- |
-| `site_url` | Exact browser origin, including `http://` or `https://` and port. No path. Default: `http://homeassistant.local:8086`. |
 | `admin_user` | Initial administrator username, default `admin`. |
 | `admin_email` | Initial administrator email, default `admin@example.com`. |
 | `admin_password` | Initial administrator password, default `password`. |
@@ -24,7 +23,7 @@ change it in InvenTree. Change the default password after first login.
 
 `options.json` is never required. Non-empty Home Assistant options take priority
 over native `INVENTREE_*` environment variables. Without either, the wrapper
-uses persistent SQLite, `http://localhost:8086`, UTC, and `admin` / `password`.
+uses persistent SQLite, UTC, and `admin` / `password`.
 Compose accepts an optional `.env` file; see `.env.example`. Custom environment
 settings such as `INVENTREE_DB_HOST`, `INVENTREE_DB_NAME`, `INVENTREE_DB_USER`, and
 `INVENTREE_DB_PASSWORD` can configure an external PostgreSQL database when
@@ -41,15 +40,17 @@ The background worker uses the database-backed queue.
 
 ## Web access
 
-Use the configured `site_url`; another hostname may be rejected. If you change
-the exposed host port in Home Assistant's Network section, also change
-`site_url`. The container always listens on HTTP port 8080.
+Open `http://<HA-hostname-or-IP>:8086`, or the port selected in the Network
+section. No hostname option is required. The container listens on HTTP port 8080.
+The wrapper accepts any valid hostname and uses the current request for web links.
+Legacy `site_url` options and `INVENTREE_SITE_URL` values are ignored.
+Authentication and Django's same-origin CSRF checks remain enabled.
 
-Ingress is not enabled: the frontend is served at the root of its own origin.
-Home Assistant authentication does not replace InvenTree's login.
-For HTTPS, use a separate reverse proxy with a dedicated hostname and set
-`site_url` to that HTTPS origin. The proxy must preserve the original Host.
+Ingress is not enabled yet. InvenTree still requires its own login.
 The add-on does not terminate TLS or trust incoming forwarded-protocol headers.
+Background jobs without a browser request may need InvenTree's Base URL setting
+for absolute links in emails or generated documents. Upstream may log
+`No SITE_URL specified`; this is expected for this request-based configuration.
 
 ## Supplier Scout
 
@@ -144,7 +145,7 @@ data; retain a backup before uninstalling.
   `/data/ha-inventree-addon`, matching the application's persistent directory.
 - **Startup exits immediately:** validate any configured URL/timezone and
   check database connectivity for PostgreSQL.
-- **CSRF or host errors:** ensure the browser origin matches `site_url` exactly.
+- **CSRF errors:** access the UI and API through the same origin and check any reverse proxy configuration.
 - **Blank frontend:** inspect migration/static collection logs and restart.
 - **Supplier Scout is not visible:** activate it, enable UI/URL integration, and
   configure a supplier company ID as well as credentials.
