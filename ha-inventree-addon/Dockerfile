@@ -11,7 +11,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements-plugins.txt /opt/ha-inventree/requirements-plugins.txt
-RUN python3 -m pip install --no-cache-dir --require-hashes \
+RUN python3 -m pip install --no-cache-dir \
     -r /opt/ha-inventree/requirements-plugins.txt
 
 # Smart Parts writes its activity log beside the installed package. Keep it

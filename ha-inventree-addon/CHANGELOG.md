@@ -1,3 +1,10 @@
+# 1.6.4-10
+
+- Track the head of main for alangibson/inventree-smart-parts instead of a
+  pinned commit.
+- Remove plugin archive hashes and pip hash enforcement to allow the changing
+  main branch archive; retain version pins for the other plugins.
+
 # 1.6.4-9
 
 - Install Smart Parts from alangibson/inventree-smart-parts at commit
