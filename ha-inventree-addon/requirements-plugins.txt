@@ -1,3 +1,4 @@
 inventree-supplier-scout==0.1.2 --hash=sha256:9aab76a285ea10d39f5165c2d999f5b43945e0526da7ececd25a8745fc99d3a8
 inventree-kicad-plugin==2.4.1 --hash=sha256:b96bf2b6003f665fbf37bc27311d72d940cd20eaa689dc6bed4b5856391acc28
-inventree-smart-parts==1.2.0 --hash=sha256:54dda160de2857008eaea7292b6992fa8e497767f8173433c77971405a1f5d00
+# Alan Gibson fork, pinned to commit 199e5b3c95722a22d3dfac450bef174cad75a07d
+inventree-smart-parts @ https://codeload.github.com/alangibson/inventree-smart-parts/tar.gz/199e5b3c95722a22d3dfac450bef174cad75a07d --hash=sha256:87dc5b6e63b0d1c2545b786d6154f83aa856ea6458bdee3ada671464864582db

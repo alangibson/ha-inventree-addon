@@ -101,7 +101,8 @@ For an existing Compose installation, install the updated image with
 
 ## Smart Parts
 
-Smart Parts 1.2.0 is bundled in the image. Activate **SmartParts** in the Plugin
+Smart Parts 1.2.0 from the Alan Gibson fork is bundled in the image, pinned to
+commit `199e5b3c95722a22d3dfac450bef174cad75a07d`. Activate **SmartParts** in the Plugin
 Admin Center and enable the upstream-required App, URL, navigation, interface,
 and event integrations. Restart the add-on after activation.
 
@@ -110,7 +111,7 @@ Configure distributor API credentials in Smart Parts' settings; these are
 separate from Supplier Scout's settings. The activity log is stored at
 `/data/ha-inventree-addon/smart_parts_activity.jsonl` so it survives container replacement.
 
-See the [Smart Parts guide](https://github.com/0neShot/inventree-smart-parts)
+See the [Smart Parts guide](https://github.com/alangibson/inventree-smart-parts)
 for scanner, PureScan, and distributor configuration. This add-on bundles the
 published PyPI release rather than tracking unreleased GitHub changes.
 

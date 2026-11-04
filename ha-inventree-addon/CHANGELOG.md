@@ -1,3 +1,8 @@
+# 1.6.4-9
+
+- Install Smart Parts from alangibson/inventree-smart-parts at commit
+  199e5b3c95722a22d3dfac450bef174cad75a07d, with a verified archive hash.
+
 # 1.6.4-8
 
 - Fix duplicated Ingress prefixes in metadata-driven API requests, including
