@@ -1,6 +1,6 @@
 # InvenTree
 
-Inventory management using the official InvenTree image, with Supplier Scout, KiCad, and Smart Parts plugins,
+Inventory management using the official InvenTree image, with Supplier Scout, KiCad, Smart Parts, Dymo, Advanced Sheet Label, WireViz, and Electronic Symbols plugins,
 persistent storage, a background worker, and an authenticated media proxy.
 
 Use Open Web UI or enable Show in sidebar in Home Assistant. Direct access is

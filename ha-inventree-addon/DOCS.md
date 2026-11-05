@@ -112,8 +112,28 @@ separate from Supplier Scout's settings. The activity log is stored at
 `/data/ha-inventree-addon/smart_parts_activity.jsonl` so it survives container replacement.
 
 See the [Smart Parts guide](https://github.com/alangibson/inventree-smart-parts)
-for scanner, PureScan, and distributor configuration. This add-on bundles the
-published PyPI release rather than tracking unreleased GitHub changes.
+for scanner, PureScan, and distributor configuration. This add-on installs
+Smart Parts from the fork's main branch when the image is built.
+
+## Label printing and wiring diagrams
+
+The image also installs these plugins. Activate them in **Admin Center → Plugins**:
+
+- **Dymo 1.1.1** (`inventree-dymo-plugin`): add a machine using the Dymo driver
+  in **Admin Center → Machines**. It sends printer commands to a RAW network
+  socket server connected to a supported LabelWriter 450-series printer.
+- **Advanced Sheet Label 1.4.0** (`inventree-adv-sheet-label`): choose
+  **AdvancedLabelSheet** in the label printing dialog to generate sheet-layout PDFs.
+- **WireViz 1.3.0** (`inventree-wireviz-plugin`): enable interface, URL, and report
+  integration, then upload a `.wireviz` harness definition to an assembly part.
+  Graphviz is included in the image for diagram rendering.
+
+## Electronic Symbols
+
+Electronic Symbols 1.0.0 (`inventree-electronic-symbols`) is installed by default.
+Activate it in **Admin Center → Plugins**, reload the browser, and choose
+**Electronic Symbols** in an icon picker, such as a part category icon field.
+The symbol fonts are bundled and served locally.
 
 ## Storage and backups
 

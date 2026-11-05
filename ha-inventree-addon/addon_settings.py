@@ -18,3 +18,14 @@ MIDDLEWARE = ['ingress.IngressMiddleware'] + [  # noqa: F405
     middleware for middleware in MIDDLEWARE
     if middleware != 'InvenTree.middleware.InvenTreeHostSettingsMiddleware'
 ]
+
+# Send PDF rendering diagnostics to the Home Assistant add-on log.
+LOGGING['handlers']['weasyprint_console'] = {  # noqa: F405
+    'class': 'logging.StreamHandler',
+    'formatter': 'plain_console',
+}
+LOGGING['loggers']['weasyprint'] = {  # noqa: F405
+    'handlers': ['weasyprint_console'],
+    'level': 'DEBUG',
+    'propagate': False,
+}

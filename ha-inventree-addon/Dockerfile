@@ -7,7 +7,7 @@ USER root
 RUN ln -s /data/ha-inventree-addon /home/inventree/data
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends nginx \
+    && apt-get install -y --no-install-recommends nginx graphviz \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements-plugins.txt /opt/ha-inventree/requirements-plugins.txt

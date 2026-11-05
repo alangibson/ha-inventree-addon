@@ -1,3 +1,12 @@
+# 1.6.4-11
+
+- Bundle inventree-dymo-plugin 1.1.1, inventree-adv-sheet-label 1.4.0,
+  inventree-wireviz-plugin 1.3.0, and inventree-electronic-symbols 1.0.0
+  by default.
+- Include Graphviz for WireViz diagram rendering.
+- Send WeasyPrint PDF rendering diagnostics, including debug and progress
+  messages, to the add-on log using InvenTree's plain_console formatter.
+
 # 1.6.4-10
 
 - Track the head of main for alangibson/inventree-smart-parts instead of a
