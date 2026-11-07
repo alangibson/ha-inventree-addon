@@ -7,7 +7,7 @@ image, pinned to **1.6.4**, on amd64 and aarch64. Includes
 [Supplier Scout](https://github.com/getpwnam/inventree-supplier-scout) **0.1.2**,
 [InvenTree KiCad](https://github.com/afkiwers/inventree_kicad) **2.4.1**, and
 [Smart Parts](https://github.com/alangibson/inventree-smart-parts) **1.2.0**
-(Alan Gibson fork, tracking `main`). Also bundles
+(Alan Gibson fork, pinned to commit `2698574e5766dde70d410590207944857e0659b3`). Also bundles
 [Dymo](https://github.com/wolflu05/inventree-dymo-plugin) **1.1.1**,
 [Advanced Sheet Label](https://github.com/melektron/inventree-adv-sheet-label) **1.4.0**,
 [WireViz](https://github.com/inventree/inventree-wireviz) **1.3.0**,

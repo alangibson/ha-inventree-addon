@@ -4,5 +4,5 @@ inventree-dymo-plugin==1.1.1
 inventree-adv-sheet-label==1.4.0
 inventree-wireviz-plugin==1.3.0
 inventree-electronic-symbols==1.0.0
-# Alan Gibson fork, tracking the head of main.
-inventree-smart-parts @ https://codeload.github.com/alangibson/inventree-smart-parts/tar.gz/refs/heads/main
+# Alan Gibson fork, pinned to a specific commit.
+inventree-smart-parts @ https://codeload.github.com/alangibson/inventree-smart-parts/tar.gz/2698574e5766dde70d410590207944857e0659b3

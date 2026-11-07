@@ -1,3 +1,10 @@
+# 1.6.4-12
+
+- Update Smart Parts to commit 2698574e5766dde70d410590207944857e0659b3
+  from alangibson/inventree-smart-parts.
+- Pin Smart Parts to that commit instead of tracking main so dependency updates
+  invalidate the Docker build cache and install the intended plugin revision.
+
 # 1.6.4-11
 
 - Bundle inventree-dymo-plugin 1.1.1, inventree-adv-sheet-label 1.4.0,
