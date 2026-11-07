@@ -1,7 +1,7 @@
 inventree-supplier-scout==0.1.2
 inventree-kicad-plugin==2.4.1
 inventree-dymo-plugin==1.1.1
-inventree-adv-sheet-label==1.4.0
+inventree-adv-sheet-label @ https://codeload.github.com/alangibson/inventree-adv-sheet-label/tar.gz/5f09241fc4c163b7378a8bd30fa0f6437e944994
 inventree-wireviz-plugin==1.3.0
 inventree-electronic-symbols==1.0.0
 # Alan Gibson fork, pinned to a specific commit.

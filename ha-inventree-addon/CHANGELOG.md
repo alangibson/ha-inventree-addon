@@ -1,3 +1,9 @@
+# 1.6.4-14
+
+- Install Advanced Sheet Label from alangibson/inventree-adv-sheet-label,
+  pinned to commit 5f09241fc4c163b7378a8bd30fa0f6437e944994 instead of
+  the PyPI 1.4.0 release.
+
 # 1.6.4-13
 
 - Update Smart Parts to commit 553ee0967d8a39631334870cf471f121348de548
