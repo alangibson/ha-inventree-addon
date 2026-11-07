@@ -1,3 +1,8 @@
+# 1.6.4-13
+
+- Update Smart Parts to commit 553ee0967d8a39631334870cf471f121348de548
+  from alangibson/inventree-smart-parts.
+
 # 1.6.4-12
 
 - Update Smart Parts to commit 2698574e5766dde70d410590207944857e0659b3
