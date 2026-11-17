@@ -5,4 +5,4 @@ inventree-adv-sheet-label @ https://codeload.github.com/alangibson/inventree-adv
 inventree-wireviz-plugin==1.3.0
 inventree-electronic-symbols==1.0.0
 # Alan Gibson fork, pinned to a specific commit.
-inventree-smart-parts @ https://codeload.github.com/alangibson/inventree-smart-parts/tar.gz/553ee0967d8a39631334870cf471f121348de548
+inventree-smart-parts @ https://codeload.github.com/alangibson/inventree-smart-parts/tar.gz/aad30e3f348bda2ba87ca7c4e49b29b513a13187

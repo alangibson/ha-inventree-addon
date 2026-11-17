@@ -1,3 +1,8 @@
+# 1.6.4-15
+
+- Update Smart Parts to commit aad30e3f348bda2ba87ca7c4e49b29b513a13187
+  from alangibson/inventree-smart-parts.
+
 # 1.6.4-14
 
 - Install Advanced Sheet Label from alangibson/inventree-adv-sheet-label,
